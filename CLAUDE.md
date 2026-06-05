@@ -70,6 +70,16 @@ Zasoby: `src/main/resources/` — `paper-plugin.yml`, `config.yml`, `Translation
   Każdy plugin trzyma **rejestr istniejących helperów** w swoim lokalnym `CLAUDE.md` — przeczytaj go
   przed napisaniem nowego i dopisz nowy helper w tym samym commicie.
 - **Nazewnictwo bez skrótów** (poza ogólnie znanymi: `uuid`, `id`, `db`).
+- **Bez zbędnych komentarzy.** Komentarz ma wyjaśniać *dlaczego* i niespodzianki, nie powtarzać nazwy.
+  Zbędne (do usunięcia / niepisania):
+  - JavaDoc/komentarz klasy który tylko parafrazuje jej nazwę — np. `/** System kolorowych logów dla
+    pluginu Klas. */` nad klasą `ColoredLogger`, albo `/** Główna klasa pluginu. */` nad `XxxPlugin`.
+  - Komentarz typu „identyczny/taki sam jak X w innym pluginie" — to jest oczywiste z kodu i rozjeżdża
+    się gdy jeden z nich się zmieni.
+  - Getter/setter/override z JavaDokiem powtarzającym sygnaturę.
+
+  Dozwolone i mile widziane: krótki JavaDoc na publicznej metodzie serwisu opisujący kontrakt/WHY,
+  oraz komentarze tłumaczące nieoczywistą decyzję (np. „60-tickowy delay bo CoinsEngine ładuje się później").
 - **Brak magic numbers** — `private static final` z mówiącą nazwą lub klucz w `config.yml` (wyjątki: 0, 1, -1).
 - **Publiczne API serwisu = minimum.** Pola prywatne, helpery `private`.
 - **Refaktor przy okazji = NIE**, chyba że poproszono. Bug fix nie ciągnie sprzątania okolicznego kodu;
