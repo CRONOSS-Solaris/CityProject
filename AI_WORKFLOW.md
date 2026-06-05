@@ -110,6 +110,8 @@ node scripts/check-ai-workflow.mjs
 ```
 
 Sprawdza (twardo, exit 1): istnienie huba + per-plugin `AI_WORKFLOW.md` dla każdego subprojektu Gradle
-(katalog z `build.gradle`), rozwiązywalność **wszystkich** linków wewnętrznych w mapach oraz to, że hub
-wymienia każdy wykryty subprojekt. Ostrzeżenia (exit 0): submoduł bez `build.gradle`, brak linku zwrotnego
-do huba. Czysty Node, zero zależności. Szczegóły i Definition of Done: [`CLAUDE.md`](CLAUDE.md) §13.
+(katalog z `build.gradle`), rozwiązywalność **wszystkich** linków wewnętrznych w mapach, to że hub
+wymienia każdy wykryty subprojekt, oraz **kompletność** — każdy top-level pakiet/klasa pluginu
+(`src/main/java/cronos/<plugin>/*`) musi być wymieniony w jego mapie (łapie „dodałem pakiet, nie dopisałem
+do mapy"). Ostrzeżenia (exit 0): submoduł bez `build.gradle`, brak linku zwrotnego do huba. Czysty Node,
+zero zależności. Szczegóły i Definition of Done: [`CLAUDE.md`](CLAUDE.md) §13.

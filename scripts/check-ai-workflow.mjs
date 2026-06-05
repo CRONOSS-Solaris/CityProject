@@ -134,6 +134,36 @@ for (const r of reposWithMap) {
   }
 }
 
+// 4. Kompletność: każdy top-level pakiet/klasa pluginu wspomniany w jego mapie
+/**
+ * Zwraca katalogi-korzenie pakietu pluginu (src/main/java/cronos/<plugin>).
+ * @param {string} repoDir absolutny katalog subprojektu
+ * @returns {string[]}
+ */
+function pluginPackageRoots(repoDir) {
+  const base = join(repoDir, 'src', 'main', 'java', 'cronos')
+  if (!existsSync(base)) return []
+  return readdirSync(base, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => join(base, d.name))
+}
+for (const r of reposWithMap) {
+  const map = readFileSync(join(ROOT, r, 'AI_WORKFLOW.md'), 'utf8')
+  for (const pkgRoot of pluginPackageRoots(join(ROOT, r))) {
+    for (const child of readdirSync(pkgRoot, { withFileTypes: true })) {
+      const name = child.isDirectory()
+        ? child.name
+        : child.name.endsWith('.java')
+          ? child.name.slice(0, -5)
+          : null
+      if (!name) continue
+      if (!map.includes(name)) {
+        errors.push(`Kompletność: ${r} ma top-level "${name}" w kodzie, ale mapa ${r}/AI_WORKFLOW.md go nie wymienia.`)
+      }
+    }
+  }
+}
+
 // Raport
 console.log(`AI_WORKFLOW check: ${mapFiles.length} map, ${linkCount} linków wewnętrznych, ${repos.length} subprojektów.`)
 if (warnings.length) {
