@@ -1,8 +1,8 @@
 [submodule "CitySystem"]
 	path = CitySystem
-	url = ./CitySystem
+	url = ../CitySystem.git
 	branch = master
 [submodule "ClassSystem"]
 	path = ClassSystem
-	url = ./ClassSystem
+	url = ../ClassSystem.git
 	branch = master
