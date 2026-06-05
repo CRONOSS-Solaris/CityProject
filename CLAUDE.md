@@ -18,8 +18,9 @@ wersjonowanie, styl kodu, dyscyplina commitów, response discipline). Claude Cod
 > **Zasada przynależności reguły**: reguła ogólna (dotyczy >1 pluginu) → ten plik. Reguła zależna od
 > konkretnego pluginu → jego lokalny `CLAUDE.md`. Nie duplikować reguł ogólnych w podprojektach.
 
-> **Mapa dla AI (zacznij tu):** [`AI_WORKFLOW.md`](AI_WORKFLOW.md) — hub „gdzie co jest" + per-plugin
-> `*/AI_WORKFLOW.md`. **Utrzymuj świeżość → §13.**
+> 🧠 **GŁÓWNA BAZA WIEDZY dla AI:** [`AI_WORKFLOW.md`](AI_WORKFLOW.md) (hub „gdzie co jest" + zależności,
+> per-plugin `*/AI_WORKFLOW.md`) **oraz ten plik** (`CLAUDE.md` — zasady/konwencje). Te dwa to **źródło prawdy**
+> dla każdego agenta — zacznij zawsze tu, dopiero potem czytaj kod. **Utrzymuj świeżość → §13.**
 
 CitySystem jest **wzorcem referencyjnym** — gdy schemat jest niejasny, zajrzyj jak rozwiązuje to
 CitySystem i powiel ten sam układ w pozostałych pluginach.
@@ -172,9 +173,12 @@ Repo ma dedykowaną **mapę dla AI**: hub [`AI_WORKFLOW.md`](AI_WORKFLOW.md) w k
 w korzeniu **każdego** pluginu. Pliki linkują „każde do każdego" (hub ⇄ plugin, plugin ⇄ sąsiad), żeby
 agent szybko znalazł „gdzie co jest". Wzorowane na rozwiązaniu z repo `qorid`.
 
-**13.1 Zasada startu.** Każdą pracę zaczynaj od `AI_WORKFLOW.md` — najpierw hub, potem mapa pluginu,
-w którym pracujesz. Mapy opisują **realny kod**; gdy `CLAUDE.md` (intencja) rozjeżdża się z kodem,
-źródłem prawdy jest kod.
+**13.1 Zasada startu (główna baza wiedzy).** `AI_WORKFLOW.md` + `CLAUDE.md` to **podstawowa wiedza i źródło
+prawdy** dla każdego agenta AI w tym repo. Każdą pracę zaczynaj od nich: najpierw hub `AI_WORKFLOW.md`, potem
+mapa pluginu + jego lokalny `CLAUDE.md`; dopiero potem kod. Mapy opisują **realny kod**; gdy dokument
+(`CLAUDE.md`/`README`/mapa) rozjeżdża się z kodem, **źródłem prawdy jest kod** — a rozbieżność zapisz w
+rejestrze [`AI_WORKFLOW.md` §7](AI_WORKFLOW.md) („Rozbieżności i wykryte błędy"). Wszystkie błędy strukturalne
+wypisuje walidator (§13.3) — uruchom go, by zobaczyć pełną listę naraz.
 
 **13.2 Reguła świeżości (OBOWIĄZKOWA).** `AI_WORKFLOW.md` musi być zawsze aktualny. W **tym samym
 commicie**, który zmienia którekolwiek z poniższych, zaktualizuj odpowiedni `AI_WORKFLOW.md`:

@@ -1,5 +1,10 @@
 # AI_WORKFLOW — CityProject (hub nawigacyjny dla AI)
 
+> 🧠 **To jest GŁÓWNA BAZA WIEDZY dla AI w tym repo — razem z [`CLAUDE.md`](CLAUDE.md).**
+> `AI_WORKFLOW.md` (gdzie co jest + zależności) + `CLAUDE.md` (zasady/konwencje) to **źródło prawdy** dla każdego
+> agenta. Zacznij **zawsze tu**: najpierw ten hub, potem `AI_WORKFLOW.md` pluginu + jego `CLAUDE.md`. Dopiero
+> potem czytaj kod. Przy rozbieżności dokument ↔ kod — **źródłem prawdy jest kod**, a rozbieżność zapisz w [§7](#7-rozbieżności-i-wykryte-błędy).
+
 > **Po co ten plik:** szybka, **zawsze świeża** mapa „gdzie co jest" w całym repo nadrzędnym, pisana dla
 > agentów AI (Claude Code, Codex, …). Zacznij **tutaj**, potem wejdź w `AI_WORKFLOW.md` konkretnego pluginu.
 > Każdy plugin linkuje z powrotem do tego huba i do sąsiada.
@@ -115,3 +120,26 @@ wymienia każdy wykryty subprojekt, oraz **kompletność** — każdy top-level 
 (`src/main/java/cronos/<plugin>/*`) musi być wymieniony w jego mapie (łapie „dodałem pakiet, nie dopisałem
 do mapy"). Ostrzeżenia (exit 0): submoduł bez `build.gradle`, brak linku zwrotnego do huba. Czysty Node,
 zero zależności. Szczegóły i Definition of Done: [`CLAUDE.md`](CLAUDE.md) §13.
+
+---
+
+## 7. Rozbieżności i wykryte błędy
+
+Miejsce w workspace, gdzie **wypisuje się wszystkie wykryte błędy i rozbieżności**, żeby AI nie ufał ślepo
+dokumentom. Dwa źródła:
+
+**A) Automatyczne (strukturalne) — walidator.** `node scripts/check-ai-workflow.mjs` wypisuje **wszystkie**
+wykryte błędy naraz (nie zatrzymuje się na pierwszym): martwe linki, brakujące mapy, niewymienione subprojekty,
+niekompletne pokrycie top-level pakietów. To samo leci w CI ([`.github/workflows/ai-workflow.yml`](.github/workflows/ai-workflow.yml))
+na push/PR. Błąd walidatora = mapa nieaktualna względem kodu → napraw przed merge.
+
+**B) Ręczne (semantyczne) — rejestr rozbieżności kod ↔ dokumentacja.** Gdy zauważysz, że `CLAUDE.md` / `README` /
+mapa opisuje co innego niż robi kod, a nie naprawiasz od razu — **dopisz wpis tutaj** zamiast zostawiać cichą
+pułapkę. Format: plugin · obszar · dokument → rzeczywistość · data.
+
+| Plugin | Obszar | Rozbieżność (dokument → rzeczywistość) | Data |
+|---|---|---|---|
+| — | — | **Brak znanych rozbieżności na HEAD.** Mapy zbudowane z realnego kodu. | 2026-06-05 |
+
+> Reguła: przy rozbieżności **źródłem prawdy jest kod**. Wpis tu = TODO pogodzenia dokumentu z kodem; po
+> naprawie usuń wiersz. Pusty rejestr (tylko wiersz „brak") = dokumentacja zgodna z `HEAD`.
