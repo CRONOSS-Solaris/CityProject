@@ -1,0 +1,8 @@
+[submodule "CitySystem"]
+	path = CitySystem
+	url = ./CitySystem
+	branch = master
+[submodule "ClassSystem"]
+	path = ClassSystem
+	url = ./ClassSystem
+	branch = master

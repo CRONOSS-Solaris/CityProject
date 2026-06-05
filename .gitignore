@@ -1,0 +1,18 @@
+# Repo nadrzędne — śledzi tylko warstwę wspólną + wskaźniki submodułów.
+# Zawartość CitySystem/ i ClassSystem/ jest wersjonowana w ich własnych repo (submoduły).
+
+### Claude Code (lokalne) ###
+.claude/settings.local.json
+
+### IntelliJ IDEA ###
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
