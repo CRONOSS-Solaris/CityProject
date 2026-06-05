@@ -1,0 +1,33 @@
+name: AI_WORKFLOW freshness
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Validate AI_WORKFLOW maps
+    runs-on: ubuntu-latest
+
+    steps:
+      # submodules: recursive — per-plugin AI_WORKFLOW.md i linki żyją w submodułach.
+      # URL-e w .gitmodules są względne, więc rozwiązują się w tej samej organizacji.
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Walidator nie ma zależności (czysty Node) — bez npm install.
+      - name: Check AI_WORKFLOW freshness
+        run: node scripts/check-ai-workflow.mjs

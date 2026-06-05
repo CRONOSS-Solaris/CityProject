@@ -18,6 +18,9 @@ wersjonowanie, styl kodu, dyscyplina commitów, response discipline). Claude Cod
 > **Zasada przynależności reguły**: reguła ogólna (dotyczy >1 pluginu) → ten plik. Reguła zależna od
 > konkretnego pluginu → jego lokalny `CLAUDE.md`. Nie duplikować reguł ogólnych w podprojektach.
 
+> **Mapa dla AI (zacznij tu):** [`AI_WORKFLOW.md`](AI_WORKFLOW.md) — hub „gdzie co jest" + per-plugin
+> `*/AI_WORKFLOW.md`. **Utrzymuj świeżość → §13.**
+
 CitySystem jest **wzorcem referencyjnym** — gdy schemat jest niejasny, zajrzyj jak rozwiązuje to
 CitySystem i powiel ten sam układ w pozostałych pluginach.
 
@@ -162,6 +165,39 @@ Repo nadrzędne dostarcza wspólny zestaw skilli **Spec Kit** (`speckit-specify`
 `speckit-tasks`, `speckit-implement`, `speckit-clarify`, `speckit-analyze`, `speckit-checklist`,
 `speckit-constitution`, `speckit-git-*`). Dziedziczone hierarchicznie przez wszystkie podprojekty.
 Workflow speckit wymaga struktury `.specify/` w katalogu danego podprojektu (tworzonej przez `speckit-*`).
+
+## 13. AI_WORKFLOW — mapa nawigacyjna (utrzymuj świeżość)
+
+Repo ma dedykowaną **mapę dla AI**: hub [`AI_WORKFLOW.md`](AI_WORKFLOW.md) w korzeniu + `AI_WORKFLOW.md`
+w korzeniu **każdego** pluginu. Pliki linkują „każde do każdego" (hub ⇄ plugin, plugin ⇄ sąsiad), żeby
+agent szybko znalazł „gdzie co jest". Wzorowane na rozwiązaniu z repo `qorid`.
+
+**13.1 Zasada startu.** Każdą pracę zaczynaj od `AI_WORKFLOW.md` — najpierw hub, potem mapa pluginu,
+w którym pracujesz. Mapy opisują **realny kod**; gdy `CLAUDE.md` (intencja) rozjeżdża się z kodem,
+źródłem prawdy jest kod.
+
+**13.2 Reguła świeżości (OBOWIĄZKOWA).** `AI_WORKFLOW.md` musi być zawsze aktualny. W **tym samym
+commicie**, który zmienia którekolwiek z poniższych, zaktualizuj odpowiedni `AI_WORKFLOW.md`:
+
+- struktura pakietów/katalogów `src/` (dodanie/przeniesienie/usunięcie katalogu lub pliku wymienionego w mapie);
+- lista komend / permissions / kluczy config / migracji SQL;
+- rola pluginu, zależności (build-time Gradle, soft-dep runtime, zależności zewnętrzne), skrypty `build`/`test`;
+- nowy/usunięty plugin (submoduł) → zaktualizuj **hub** (tabela repo + graf) i dodaj/usuń per-plugin plik.
+
+**Definition of Done każdego commita:** jeśli zmiana dotyka powyższego, a `AI_WORKFLOW.md` nie jest
+zaktualizowany — zmiana jest niekompletna. Aktualizacja mapy to część zadania, nie opcja. Mapa odzwierciedla
+`HEAD`, nie plany.
+
+**13.3 Walidator.** Przed merge uruchom [`scripts/check-ai-workflow.mjs`](scripts/check-ai-workflow.mjs):
+
+```powershell
+node scripts/check-ai-workflow.mjs
+```
+
+Sprawdza (twardo, exit 1): istnienie huba + per-plugin `AI_WORKFLOW.md` dla każdego subprojektu Gradle,
+rozwiązywalność wszystkich linków wewnętrznych w mapach, oraz to że hub wymienia każdy subprojekt.
+Ostrzeżenia (exit 0): submoduł bez `build.gradle`, brak linku zwrotnego do huba. Czysty Node, zero
+zależności. Działa też w CI ([`.github/workflows/ai-workflow.yml`](.github/workflows/ai-workflow.yml)).
 
 ---
 

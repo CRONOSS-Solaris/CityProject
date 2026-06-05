@@ -10,6 +10,7 @@ ze wspólną warstwą konwencji (układ plików, model dokumentacji, wersjonowan
 
 ## Wspólne zasady
 
+- **[`AI_WORKFLOW.md`](AI_WORKFLOW.md)** — hub nawigacyjny dla AI („gdzie co jest" + graf zależności) + per-plugin `*/AI_WORKFLOW.md`. Punkt startowy każdej pracy agenta. Świeżość pilnuje [`scripts/check-ai-workflow.mjs`](scripts/check-ai-workflow.mjs).
 - **[`CLAUDE.md`](CLAUDE.md)** — wspólne konwencje wszystkich pluginów (czytane hierarchicznie przez Claude Code).
 - **[`.claude/skills/`](.claude/skills/)** — wspólny zestaw skilli Spec Kit, dziedziczony przez podprojekty.
 - Każdy plugin ma własny `CLAUDE.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/TECH_DEBT.md`
